@@ -1,4 +1,3 @@
-
 // ========================================
 // 1. DADOS INICIAIS
 // ========================================
@@ -21,6 +20,13 @@ let atendimentos = [
     { id: 9, cliente: "Matheus", aparelho: "Notebook Asus", status: "pronto", prazo: "2026-10-22" },
     { id: 12, cliente: "Camila", aparelho: "iPad", status: "pronto", prazo: "2026-10-23" }
 ];
+
+const iconesAparelho = {
+    smartphone: "bi-phone",
+    tablet: "bi-tablet",
+    monitor: "bi-display",
+    laptop: "bi-laptop"
+};
 
 let proximoId = Math.max(...atendimentos.map(a => a.id)) + 1;
 
@@ -139,6 +145,7 @@ function identificarIcone(aparelho) {
 
 function criarCartao(atendimento) {
     const icone = identificarIcone(atendimento.aparelho);
+    const classeIcone = iconesAparelho[icone] || "bi-laptop";
 
     return `
         <article class="cartao-atendimento">
@@ -148,7 +155,7 @@ function criarCartao(atendimento) {
                 <span class="icone icone-aparelho"
                       data-icone="${icone}"
                       aria-hidden="true">
-                    [ícone]
+                    <i class="bi ${classeIcone}"></i>
                 </span>
 
                 <div>
@@ -293,24 +300,33 @@ function renderizarPrazos() {
         return;
     }
 
-    lista.innerHTML = pendentes.map(atendimento => `
-        <div class="item-prazo">
+    lista.innerHTML = pendentes.map(atendimento => {
+        const icone = identificarIcone(atendimento.aparelho);
+        const classeIcone = iconesAparelho[icone] || "bi-laptop";
 
-            <span class="icone" aria-hidden="true">[ícone]</span>
+        return `
+            <div class="item-prazo">
 
-            <div>
-                <strong>
-                    ${escaparHTML(atendimento.aparelho)}
-                </strong>
-
-                <span>
-                    ${formatarData(atendimento.prazo)}
+                <span class="icone" aria-hidden="true">
+                    <i class="bi ${classeIcone}"></i>
                 </span>
-            </div>
 
-        </div>
-    `).join("");
+                <div>
+                    <strong>
+                        ${escaparHTML(atendimento.aparelho)}
+                    </strong>
+
+                    <span>
+                        ${formatarData(atendimento.prazo)}
+                    </span>
+                </div>
+
+            </div>
+        `;
+    }).join("");
 }
+
+
 
 
 // ========================================

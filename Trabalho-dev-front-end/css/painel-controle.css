@@ -143,6 +143,8 @@ body h1, body h2, body p { overflow-wrap: anywhere; }
 
 .icone-roxo { background: var(--lilas); color: var(--roxo); }
 .icone-amarelo { background: var(--amarelo-claro); color: var(--roxo-escuro); }
+.icone-laranja { background: var(--laranja-claro); color: var(--roxo-escuro); }
+.icone-verde   { background: var(--verde-claro); color: var(--roxo-escuro); }
 
 .numerocartaodestatus { display: block; color: var(--roxo-escuro); font-size: 25px; font-weight: 700; line-height: 1.1; }
 .tabelacartaodestatus { display: block; margin-top: 6px; color: var(--texto-secundario); font-size: 11px; line-height: 1.35; }
@@ -238,6 +240,11 @@ body h1, body h2, body p { overflow-wrap: anywhere; }
 .informacoes-atendimento { display: flex; align-items: flex-start; gap: 8px; }
 .informacoes-atendimento > .icone { flex: 0 0 19px; margin-top: 2px; color: var(--roxo); }
 
+.informacoes-atendimento .icone-aparelho .bi {
+    font-size: 27px;
+    line-height: 1;
+}
+
 .numero-atendimento { display: block; margin-bottom: 5px; color: var(--roxo); font-size: 10px; }
 .nome-aparelho { margin: 0; color: var(--roxo-escuro); font-size: 11px; font-weight: 700; line-height: 1.45; }
 .nome-cliente { margin: 4px 0 0; color: var(--texto-secundario); font-size: 10px; line-height: 1.4; }
@@ -266,8 +273,17 @@ body h1, body h2, body p { overflow-wrap: anywhere; }
 .cartao-prazos h2 { display: flex; align-items: center; gap: 8px; margin: 0 0 16px; color: var(--roxo-escuro); font-size: 12px; }
 .cartao-prazos h2 .icone { color: var(--roxo); }
 
+.cartao-prazos h2 .icone .bi {
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
 .lista-prazos { display: flex; flex-direction: column; gap: 15px; }
 .item-prazo { display: flex; align-items: flex-start; gap: 9px; }
+.item-prazo > .icone .bi {
+    font-size: 22px;   /* ajuste: 16px, 18px, 24px... */
+    line-height: 1;
+}
 .item-prazo > .icone { flex: 0 0 18px; color: var(--roxo); }
 .item-prazo strong { display: block; color: var(--roxo-escuro); font-size: 10px; line-height: 1.4; }
 .item-prazo span { display: block; margin-top: 4px; color: var(--texto-secundario); font-size: 9px; }
@@ -275,12 +291,18 @@ body h1, body h2, body p { overflow-wrap: anywhere; }
 /* Card promocional */
 .cartao-promocional { position: relative; min-height: 205px; overflow: hidden; background: linear-gradient(145deg, #f0e7ff 0%, var(--lilas) 100%); }
 .icone-promocional { display: inline-flex; align-items: center; justify-content: center; color: var(--roxo); }
+
+.icone-promocional .bi {
+    font-size: 2rem;
+    line-height: 1;
+}
+
 .cartao-promocional h2 { margin: 10px 0 7px; color: var(--roxo-escuro); font-size: 15px; line-height: 1.4; }
 .cartao-promocional p { margin: 0; color: var(--roxo-escuro); font-size: 10px; line-height: 1.6; }
 
 .ilustracao-aparelho {
-    width: 85px;
-    height: 47px;
+    width: 150px;
+    height: 109px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -289,6 +311,12 @@ body h1, body h2, body p { overflow-wrap: anywhere; }
     background: var(--roxo);
     color: var(--branco);
     font-size: 10px;
+}
+.ilustracao-aparelho img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;   /* mostra a imagem inteira, sem cortar */
+    display: block;
 }
 
 /* ========================================
@@ -406,6 +434,10 @@ body h1, body h2, body p { overflow-wrap: anywhere; }
 @media (max-width: 370px) {
     .quadro-kanban { grid-template-columns: 1fr; }
     .cartaodestatus { gap: 7px; padding: 8px; }
-    .iconecartaodestatus { width: 29px; height: 29px; flex-basis: 29px; }
+    .iconecartaodestatus { width: 29px; height: 29px; flex-basis: 29px;}
     .tabelacartaodestatus { font-size: 9px; }
+}
+.iconecartaodestatus .bi {
+    font-size: 1.8rem;   /* ajuste: 1.5rem, 2rem, 2.5rem... */
+    line-height: 1;
 }
