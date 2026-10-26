@@ -2,7 +2,7 @@
 // 1. DADOS INICIAIS
 // ========================================
 
-let atendimentos = JSON.parse(localStorage.getItem("atendimentos")) || [
+let atendimentos = [
     { id: 1, cliente: "Mariana", aparelho: "Notebook Dell", status: "recebido", prazo: "2026-10-21" },
     { id: 5, cliente: "João", aparelho: "iPhone 13", status: "recebido", prazo: "2026-10-22" },
     { id: 8, cliente: "Carlos", aparelho: "PC Gamer", status: "recebido", prazo: "2026-10-23" },
@@ -40,6 +40,9 @@ const filtro = document.getElementById("filtrarStatus");
 const modal = document.getElementById("modalAtendimento");
 const formulario = document.getElementById("formAtendimento");
 const mensagem = document.getElementById("mensagemPainel");
+
+// Guarda o ID do atendimento quando estamos editando.
+let idAtendimentoEditando = null;
 
 const nomesStatus = {
     recebido: "Recebido",
@@ -338,7 +341,10 @@ function renderizarPrazos() {
 document.getElementById("novoAtendimento")
     .addEventListener("click", () => {
 
-        formulario.reset();          
+        formulario.reset();
+        idAtendimentoEditando = null;
+        formulario.querySelector('button[type="submit"]').textContent = "Cadastrar atendimento";
+        formulario.querySelector("h2").textContent = "Novo atendimento";
 
         const agora = new Date();
         const dataLocal = new Date(
@@ -375,6 +381,9 @@ formulario.addEventListener("submit", event => {
     const aparelho = String(dados.get("aparelho") || "").trim();
     const prazo = String(dados.get("prazo") || "");
     const status = String(dados.get("status") || "");
+    const problemaRelatado = String(
+        dados.get("problemaRelatado") || ""
+    ).trim();
     const observacoes = String(
         dados.get("observacoes") || ""
     ).trim();
@@ -389,28 +398,47 @@ formulario.addEventListener("submit", event => {
         return;
     }
 
-    const novoAtendimento = {
-        id: proximoId++,
-        cliente,
-        aparelho,
-        prazo,
-        status,
-        observacoes
-    };
+    if (idAtendimentoEditando !== null) {
+        // Atualiza o atendimento que já existe.
+        const atendimento = atendimentos.find(a => a.id === idAtendimentoEditando);
 
-    atendimentos.push(novoAtendimento);
-    localStorage.setItem("atendimentos", JSON.stringify(atendimentos));
+        if (atendimento) {
+            atendimento.cliente = cliente;
+            atendimento.aparelho = aparelho;
+            atendimento.prazo = prazo;
+            atendimento.status = status;
+            atendimento.problemaRelatado = problemaRelatado;
+            atendimento.observacoes = observacoes;
+        }
+
+        idAtendimentoEditando = null;
+        mostrarMensagem("Atendimento atualizado com sucesso!");
+    } else {
+        // Cria um novo atendimento.
+        const novoAtendimento = {
+            id: proximoId++,
+            cliente,
+            aparelho,
+            prazo,
+            status,
+            problemaRelatado,
+            observacoes
+        };
+
+        atendimentos.push(novoAtendimento);
+        mostrarMensagem("Atendimento cadastrado com sucesso!");
+    }
 
     formulario.reset();
+    formulario.querySelector('button[type="submit"]').textContent = "Cadastrar atendimento";
+    formulario.querySelector("h2").textContent = "Novo atendimento";
     fecharModal();
 
-    // Limpa a pesquisa para exibir o novo atendimento.
+    // Limpa a pesquisa para exibir o atendimento atualizado ou novo.
     pesquisa.value = "";
     filtro.value = "todos";
 
     renderizarAtendimentos();
-
-    mostrarMensagem("Atendimento cadastrado com sucesso!");
 });
 
 
@@ -458,6 +486,9 @@ function abrirDetalhes(id) {
     document.getElementById("detalheStatus").textContent =
         nomesStatus[atendimento.status];
 
+    document.getElementById("detalheProblemaRelatado").textContent =
+        atendimento.problemaRelatado || "Nenhum problema relatado.";
+
     document.getElementById("detalheObservacoes").textContent =
         atendimento.observacoes || "Nenhuma observação cadastrada.";
 
@@ -477,4 +508,36 @@ document.getElementById("fecharDetalhes")
 document.getElementById("botaoFecharDetalhes")
     .addEventListener("click", () => {
         modalDetalhes.close();
+    });
+
+
+
+// ========================================
+// 16. EDITAR UM ATENDIMENTO EXISTENTE
+// ========================================
+
+document.getElementById("botaoEditarAtendimento")
+    .addEventListener("click", () => {
+        const idTexto = document.getElementById("detalheId").textContent;
+        idAtendimentoEditando = Number(idTexto.replace("#", ""));
+
+        const atendimento = atendimentos.find(a => a.id === idAtendimentoEditando);
+
+        if (!atendimento) {
+            mostrarMensagem("Não foi possível encontrar este atendimento.");
+            return;
+        }
+
+        formulario.elements.cliente.value = atendimento.cliente;
+        formulario.elements.aparelho.value = atendimento.aparelho;
+        formulario.elements.prazo.value = atendimento.prazo;
+        formulario.elements.status.value = atendimento.status;
+        formulario.elements.problemaRelatado.value = atendimento.problemaRelatado || "";
+        formulario.elements.observacoes.value = atendimento.observacoes || "";
+
+        formulario.querySelector("h2").textContent = "Editar atendimento";
+        formulario.querySelector('button[type="submit"]').textContent = "Salvar alterações";
+
+        modalDetalhes.close();
+        modal.showModal();
     });

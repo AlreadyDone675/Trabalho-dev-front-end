@@ -25,7 +25,7 @@
             <a href="../index.html">
                 <img src="../img/inicio.png" alt=""> Início
             </a>
-            <a href="../status-atendimento/status-atendimentos.html">
+            <a href="../painel-controle/painel-controle.html">
                 <img src="../img/atendimento.png" alt=""> Meus Atendimentos
             </a>
             <a href="../index.html#servicos">
@@ -204,13 +204,22 @@
                     <option value="pronto">Pronto</option>
                 </select>
 
+                <label for="problemaRelatado">Problema relatado</label>
+                <textarea
+                    id="problemaRelatado"
+                    name="problemaRelatado"
+                    rows="3"
+                    maxlength="240"
+                    placeholder="Ex.: O notebook não liga..."
+                ></textarea>
+
                 <label for="observacoes">Observações</label>
                 <textarea
                     id="observacoes"
                     name="observacoes"
                     rows="3"
                     maxlength="240"
-                    placeholder="Descreva o problema do aparelho..."
+                    placeholder="Informações adicionais sobre o atendimento..."
                 ></textarea>
 
                 <div class="botoes-modal">
@@ -263,11 +272,19 @@
             </div>
 
             <div class="detalhe-item">
+                <strong>Problema relatado:</strong>
+                <p id="detalheProblemaRelatado"></p>
+            </div>
+
+            <div class="detalhe-item">
                 <strong>Observações:</strong>
                 <p id="detalheObservacoes"></p>
             </div>
 
             <div class="botoes-modal">
+                <button type="button" id="botaoEditarAtendimento" class="botao-novo">
+                    Editar atendimento
+                </button>
                 <button type="button" id="botaoFecharDetalhes" class="botao-cancelar">
                     Fechar
                 </button>
