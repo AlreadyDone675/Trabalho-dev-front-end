@@ -1,6 +1,6 @@
 # 🛠️ ServiceTech
 
-Sistema web de gerenciamento e acompanhamento de chamados para assistência técnica de eletrônicos, desenvolvido como projeto acadêmico de **Desenvolvimento Front-End**.
+Sistema web de gerenciamento e acompanhamento de chamados para assistência técnica de eletrônicos, desenvolvido para resolver o problema de controle de atendimentos de uma empresa de assistencia tecnica, facilitando a vida do cliente e agilizando os atendimentos **Desenvolvimento Front-End**.
 
 ---
 
@@ -20,7 +20,7 @@ Sistema web de gerenciamento e acompanhamento de chamados para assistência téc
 - **CSS3**
 - **JavaScript (Vanilla)**
 - **JSON** (dados simulados)
-
+- **BOOTSTRAP**
 ---
 
 ## ▶️ Como Executar
