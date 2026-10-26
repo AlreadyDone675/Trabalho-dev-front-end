@@ -21,15 +21,54 @@ body {
     flex: 1;
 }
 
-.cabecalho {
+/* =====================================
+   2. CABECALHO SUPERIOR
+===================================== */
+
+/* Logo e nome da empresa no menu */
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo img { width: 100px; height: 80px; object-fit: contain; }
+
+
+/* Menu superior */
+
+header {
     background-color: #543295;
     color: white;
-    height: 65px;
-    padding: 0 24px;
+    padding: 10px 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
+header {
+    position: relative;
+    z-index: 20;
+}
+
+header h2 {
+    margin: 0;
+}
+/* Formatação dos ícones do menu */
+nav img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+/*Texto clicavél dentro do menu */
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+/*Efeito do mouse sobre o Texto clicavél dentro do menu */
+nav a:hover {
+    color: #f4c24c;
+}
+
+
 
 .icone-perfil {
     width: 34px;
@@ -64,8 +103,8 @@ body {
 }
 
 .logo img {
-    width: 48px;
-    height: 38px;
+    width: 100px;
+    height: 80px;
     object-fit: contain;
 }
 
@@ -234,10 +273,9 @@ input[name="filtro"] {
     padding: 12px;
     border-bottom: 1px solid #f2edfc;
 }
-
-.recebido   { color: #f4c24c; font-weight: bold; }
+.recebido   { color: #ffd700; font-weight: bold; }
 .analise    { color: #543295; font-weight: bold; }
-.manutencao { color: #fe7f28; font-weight: bold; }
+.manutencao { color: #ffb224; font-weight: bold; }
 .pronto     { color: #12bc59; font-weight: bold; }
 
 @media (max-width: 700px) {
