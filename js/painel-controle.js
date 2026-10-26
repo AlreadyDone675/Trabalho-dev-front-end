@@ -148,7 +148,9 @@ function criarCartao(atendimento) {
     const classeIcone = iconesAparelho[icone] || "bi-laptop";
 
     return `
-        <article class="cartao-atendimento">
+       <article class="cartao-atendimento"
+         onclick="abrirDetalhes(${atendimento.id})"
+         style="cursor: pointer;">
 
             <div class="informacoes-atendimento">
 
@@ -425,3 +427,54 @@ filtro.addEventListener("change", renderizarAtendimentos);
 // ========================================
 
 renderizarAtendimentos();
+ 
+// ========================================
+// 14. ABRIR OS DETALHES DO ATENDIMENTO
+// ========================================
+
+const modalDetalhes = document.getElementById("modalDetalhes");
+
+function abrirDetalhes(id) {
+
+    const atendimento = atendimentos.find(a => a.id === id);
+
+    if (!atendimento) {
+        return;
+    }
+
+    document.getElementById("detalheId").textContent =
+        "#" + String(atendimento.id).padStart(3, "0");
+
+    document.getElementById("detalheCliente").textContent =
+        atendimento.cliente;
+
+    document.getElementById("detalheAparelho").textContent =
+        atendimento.aparelho;
+
+    document.getElementById("detalhePrazo").textContent =
+        formatarData(atendimento.prazo);
+
+    document.getElementById("detalheStatus").textContent =
+        nomesStatus[atendimento.status];
+
+    document.getElementById("detalheObservacoes").textContent =
+        atendimento.observacoes || "Nenhuma observação cadastrada.";
+
+    modalDetalhes.showModal();
+}
+
+
+// ========================================
+// 15. FECHAR O MODAL DE DETALHES
+// ========================================
+
+document.getElementById("fecharDetalhes")
+    .addEventListener("click", () => {
+        modalDetalhes.close();
+    });
+
+document.getElementById("botaoFecharDetalhes")
+    .addEventListener("click", () => {
+        modalDetalhes.close();
+    });
+

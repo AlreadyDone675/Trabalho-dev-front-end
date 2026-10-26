@@ -153,7 +153,7 @@
                     <span class="icone-promocional" aria-hidden="true"><i class="bi bi-headset"></i></span>
                     <h2>Seu aparelho<br>em boas mãos!</h2>
                     <p>Qualidade e cuidado em cada atendimento.</p>
-                    <div class="ilustracao-aparelho" aria-hidden="true"><img src="../img/imagem_principal.png" alt="Logo ServiceTech"></div>
+                    <div class="ilustracao-aparelho" aria-hidden="true"><img src="../img/imagem_principal.png" alt="Logo ServiceTech"</div>
                 </section>
 
             </aside>
@@ -223,6 +223,56 @@
                 </div>
 
             </form>
+        </dialog>
+        
+        <!-- Modal de detalhes do atendimento -->
+        <dialog id="modalDetalhes" class="modal-atendimento">
+
+            <div class="cabecalho-modal">
+                <h2>Detalhes do atendimento</h2>
+
+                <button type="button" id="fecharDetalhes" aria-label="Fechar">
+                    &times;
+                </button>
+            </div>
+            <p>Confira as informações deste atendimento.</p>
+
+            <div class="detalhe-item">
+                <strong>Número do pedido:</strong>
+                <span id="detalheId"></span>
+            </div>
+
+            <div class="detalhe-item">
+                <strong>Nome do cliente:</strong>
+                <span id="detalheCliente"></span>
+            </div>
+
+            <div class="detalhe-item">
+                <strong>Aparelho:</strong>
+                <span id="detalheAparelho"></span>
+            </div>
+
+            <div class="detalhe-item">
+                <strong>Prazo de entrega:</strong>
+                <span id="detalhePrazo"></span>
+            </div>
+
+            <div class="detalhe-item">
+                <strong>Status:</strong>
+                <span id="detalheStatus"></span>
+            </div>
+
+            <div class="detalhe-item">
+                <strong>Observações:</strong>
+                <p id="detalheObservacoes"></p>
+            </div>
+
+            <div class="botoes-modal">
+                <button type="button" id="botaoFecharDetalhes" class="botao-cancelar">
+                    Fechar
+                </button>
+            </div>
+
         </dialog>
 
         <!-- Mensagem de retorno -->
