@@ -117,8 +117,14 @@
                             <label for="f-pronto" class="filtro-btn">Pronto</label>
                         </div>
 
-                        <!-- CAMPO DE PESQUISA -->
-                        <input type="search" class="pesquisa" aria-label="Pesquisar pelo nome do cliente" oninput="document.querySelectorAll('.tabela tbody tr').forEach(tr => tr.style.display = tr.children[1].textContent.toLowerCase().includes(this.value.toLowerCase()) ? '' : 'none')">
+                        <!-- CAMPO DE PESQUISA POR ID OU CLIENTE -->
+                        <input
+                            type="search"
+                            class="pesquisa"
+                            placeholder="Pesquisar por ID ou cliente (Ex: #001)..."
+                            aria-label="Pesquisar por ID ou nome do cliente"
+                            oninput="const termo = this.value.toLowerCase().trim(); document.querySelectorAll('.tabela tbody tr').forEach(tr => tr.style.display = (tr.children[0].textContent.toLowerCase().includes(termo) || tr.children[1].textContent.toLowerCase().includes(termo)) ? '' : 'none')"
+                        >
                     </div>
 
                     <!-- TABELA DE ATENDIMENTOS -->
@@ -149,6 +155,13 @@
 
     <!-- CARREGAMENTO DOS DADOS VIA JAVASCRIPT -->
     <script>
+        const opcoesStatus = [
+            { classe: 'recebido', texto: 'Recebido' },
+            { classe: 'analise', texto: 'Em análise' },
+            { classe: 'manutencao', texto: 'Em manutenção' },
+            { classe: 'pronto', texto: 'Pronto' }
+        ];
+
         fetch('status-atendimento.json')
             .then(res => res.json())
             .then(dados => {
@@ -158,12 +171,65 @@
                         <td>${a.cliente}</td>
                         <td>${a.aparelho}</td>
                         <td>${a.servico}</td>
-                        <td class="${a.classe}">${a.status}</td>
+                        <td><span class="etiqueta-status ${a.classe}">${a.status}</span></td>
                         <td>${a.data}</td>
-                        <td>Editar | ...</td>
+                        <td class="celula-acoes">
+                            <button type="button" class="btn-editar" onclick="alternarMenuStatus(this)">
+                                <i class="bi bi-pencil-square"></i> Editar
+                            </button>
+                            <div class="menu-status" hidden>
+                                ${opcoesStatus.map(op => `
+                                    <button
+                                        type="button"
+                                        class="opcao-status ${op.classe === a.classe ? 'ativo' : ''}"
+                                        data-classe="${op.classe}"
+                                        onclick="alterarStatus(this, '${op.classe}', '${op.texto}')"
+                                    >
+                                        <span class="etiqueta-status ${op.classe}">${op.texto}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </td>
                     </tr>
                 `).join('');
             });
+
+        function alternarMenuStatus(botao) {
+            const menuAtual = botao.nextElementSibling;
+            const estavaOculto = menuAtual.hasAttribute('hidden');
+
+            document.querySelectorAll('.menu-status').forEach(menu => {
+                menu.setAttribute('hidden', '');
+            });
+
+            if (estavaOculto) {
+                menuAtual.removeAttribute('hidden');
+            }
+        }
+
+        function alterarStatus(botaoOpcao, novaClasse, novoTexto) {
+            const linha = botaoOpcao.closest('tr');
+            const etiqueta = linha.querySelector('td:nth-child(5) .etiqueta-status');
+            const menu = botaoOpcao.closest('.menu-status');
+
+            linha.className = `item-${novaClasse}`;
+            etiqueta.className = `etiqueta-status ${novaClasse}`;
+            etiqueta.textContent = novoTexto;
+
+            menu.querySelectorAll('.opcao-status').forEach(btn => {
+                btn.classList.toggle('ativo', btn.dataset.classe === novaClasse);
+            });
+
+            menu.setAttribute('hidden', '');
+        }
+
+        document.addEventListener('click', function (evento) {
+            if (!evento.target.closest('.celula-acoes')) {
+                document.querySelectorAll('.menu-status').forEach(menu => {
+                    menu.setAttribute('hidden', '');
+                });
+            }
+        });
     </script>
 </body>
 </html>

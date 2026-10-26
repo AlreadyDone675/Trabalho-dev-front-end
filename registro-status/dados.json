@@ -1,0 +1,14 @@
+{
+  "id": "#123",
+  "cliente": "Mariana",
+  "mensagem": "Seu atendimento está em andamento",
+  "aparelhoCompleto": "Notebook Dell Inspiron",
+  "aparelho": "Notebook",
+  "marca": "Dell",
+  "modelo": "Inspiron",
+  "problema": "Notebook não liga",
+  "servico": "Diagnóstico",
+  "data": "28/09/2026",
+  "observacoes": "Verificação do sistema e componentes internos.",
+  "status": "Em manutenção"
+}

@@ -12,7 +12,7 @@
         <title>ServiceTech</title>
 
         <!-- Ícone da aba do navegador -->
-        <link rel="icon" type="image/png" href="../img/atendimento.png">
+        <link rel="icon" type="image/png" href="img/atendimento.png">
 
 
         <link rel="stylesheet" href="css/tela-inicial.css">
@@ -34,7 +34,7 @@
         <a href="index.html">
         <img src="img/inicio.png" alt=""> Início</a>
        
-        <a href="status-atendimentos/status-atendimentos.html">
+        <a href="login/login.html">
         <img src="img/atendimento.png" alt=""> Meus Atendimentos</a>
 
 
@@ -62,10 +62,23 @@
                         atendimento rápido, seguro e transparente.
                     </p>
                 <!--Botão dentro dsa pagina que redireciona a pagina de Atendimentos-->
-                    <a class="botao" href="registro-status/registro-status.html">Acompanhe seu atendimento</a>
+                    <button type="button" class="botao" id="btn-acompanhar">Acompanhe seu atendimento</button>
 
                 <!--Botão redireciona usuário para texto dentro da pagina-->
                     <a class="botao-secundario" href="#servicos">Ver serviços</a>
+
+                <!--Barra de pesquisa por número do chamado-->
+                    <form class="barra-pesquisa-chamado" id="form-busca-chamado" action="registro-status/registro-status.html" method="get" hidden>
+                        <input
+                            type="text"
+                            name="chamado"
+                            id="numero-chamado"
+                            class="campo-chamado"
+                            placeholder="Consulte seu chamado por número (Ex: 123)"
+                            aria-label="Número do chamado"
+                        >
+                        <button type="submit" class="botao-buscar-chamado">Consultar</button>
+                    </form>
                 </div>
 
                 <!-- imagem principal -->
@@ -134,7 +147,6 @@
             <section class="ajuda">
                 <h2>Precisa de ajuda com seu aparelho?</h2>
                 <p>Entre em contato com nossa equipe ou consulte seus atendimentos.</p>
-                <a class="botao" href="">Acompanhar atendimento</a>
             </section>
         </main>
 
@@ -142,6 +154,22 @@
         <footer>
             <p>Qualidade | Confiança | ServiceTech</p>
         </footer>
+
+        <script>
+            const btnAcompanhar = document.getElementById('btn-acompanhar');
+            const formBuscaChamado = document.getElementById('form-busca-chamado');
+            const inputNumeroChamado = document.getElementById('numero-chamado');
+
+            btnAcompanhar.addEventListener('click', function () {
+                const estaOculto = formBuscaChamado.hasAttribute('hidden');
+                if (estaOculto) {
+                    formBuscaChamado.removeAttribute('hidden');
+                    inputNumeroChamado.focus();
+                } else {
+                    formBuscaChamado.setAttribute('hidden', '');
+                }
+            });
+        </script>
 
     </body>
 </html>

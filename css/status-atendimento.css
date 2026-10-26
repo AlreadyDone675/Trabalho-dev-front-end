@@ -232,8 +232,14 @@ nav a:hover {
     padding: 8px 12px;
     border: 1px solid #d6c0fd;
     border-radius: 8px;
-    min-width: 240px;
+    min-width: 260px;
     outline: none;
+    color: #3d296a;
+}
+
+.pesquisa:focus {
+    border-color: #543295;
+    box-shadow: 0 0 0 3px rgba(214, 192, 253, 0.5);
 }
 
 input[name="filtro"] {
@@ -273,10 +279,112 @@ input[name="filtro"] {
     padding: 12px;
     border-bottom: 1px solid #f2edfc;
 }
-.recebido   { color: #ffd700; font-weight: bold; }
-.analise    { color: #543295; font-weight: bold; }
-.manutencao { color: #ffb224; font-weight: bold; }
-.pronto     { color: #12bc59; font-weight: bold; }
+
+/* Etiquetas de status no padrão das demais páginas */
+.etiqueta-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.3;
+    white-space: nowrap;
+}
+
+.etiqueta-status.recebido,
+.recebido {
+    background-color: #fff1c7;
+    color: #715013;
+    font-weight: bold;
+}
+
+.etiqueta-status.analise,
+.analise {
+    background-color: #d6c0fd;
+    color: #3d296a;
+    font-weight: bold;
+}
+
+.etiqueta-status.manutencao,
+.manutencao {
+    background-color: #fdc49b;
+    color: #633b1e;
+    font-weight: bold;
+}
+
+.etiqueta-status.pronto,
+.pronto {
+    background-color: #aff0c6;
+    color: #175e36;
+    font-weight: bold;
+}
+
+/* Botão Editar e menu de seleção de status */
+.celula-acoes {
+    position: relative;
+}
+
+.btn-editar {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background-color: #f2edfc;
+    color: #543295;
+    border: 1px solid #d6c0fd;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-editar:hover {
+    background-color: #543295;
+    color: white;
+    border-color: #543295;
+}
+
+.menu-status {
+    position: absolute;
+    top: calc(100% - 4px);
+    right: 12px;
+    z-index: 30;
+    min-width: 155px;
+    padding: 6px;
+    background-color: white;
+    border: 1px solid #d6c0fd;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(61, 41, 106, 0.14);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.menu-status[hidden] {
+    display: none;
+}
+
+.opcao-status {
+    width: 100%;
+    padding: 6px 8px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.opcao-status:hover {
+    background-color: #f7f5fc;
+}
+
+.opcao-status.ativo {
+    border-color: #543295;
+    background-color: #f2edfc;
+}
 
 @media (max-width: 700px) {
     .layout2 { flex-direction: column; }

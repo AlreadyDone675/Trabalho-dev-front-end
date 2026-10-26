@@ -1,6 +1,9 @@
 // Buscamos os dados do arquivo dados.json.
 fetch("dados.json")
     .then(function(resposta) {
+        if (!resposta.ok) {
+            throw new Error("Sem arquivo dados.json");
+        }
         return resposta.json();
     })
     .then(function(dadosTela) {
@@ -30,7 +33,7 @@ fetch("dados.json")
         });
     })
     .catch(function() {
-        alert("Não foi possível carregar os dados. Abra o projeto usando o Live Server.");
+        // Mantém os textos padrão já definidos no HTML caso o JSON não esteja disponível.
     });
 
 // Mostra ou esconde a senha quando o botão do olho é clicado.
@@ -63,6 +66,7 @@ formulario.addEventListener("submit", function(evento) {
 
         mensagem.textContent = "Campos preenchidos! A validação real precisa ser feita pelo sistema.";
         mensagem.className = "mensagem sucesso";
+        window.location.href = "../painel-controle/painel-controle.html";
     } else {
         mensagem.textContent = "Preencha o e-mail e a senha.";
         mensagem.className = "mensagem erro";

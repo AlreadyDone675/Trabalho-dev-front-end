@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../../Trabalho-de-segundas"
+		},
+		{
+			"path": "../../aula"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Trabalho-dev-front-end"
+	}
+}

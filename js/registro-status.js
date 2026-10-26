@@ -1,5 +1,7 @@
-
 /* CARREGAR OS DADOS DO JSON */
+
+const parametrosUrl = new URLSearchParams(window.location.search);
+const chamadoPesquisado = parametrosUrl.get("chamado") ? parametrosUrl.get("chamado").trim() : "";
 
 fetch("dados.json")
     .then(function(resposta) {
@@ -10,6 +12,9 @@ fetch("dados.json")
         return resposta.json();
     })
     .then(function(dados) {
+        const idFormatado = chamadoPesquisado
+            ? (chamadoPesquisado.startsWith("#") ? chamadoPesquisado : "#" + chamadoPesquisado)
+            : dados.id;
 
         // Informações principais do atendimento
         document.getElementById("saudacao").textContent =
@@ -19,7 +24,7 @@ fetch("dados.json")
             dados.mensagem;
 
         document.getElementById("titulo-atendimento").textContent =
-            "Atendimento " + dados.id;
+            "Atendimento " + idFormatado;
 
         document.getElementById("aparelho-titulo").textContent =
             dados.aparelhoCompleto;
@@ -51,7 +56,7 @@ fetch("dados.json")
 
         // Informações repetidas no resumo lateral
         document.getElementById("resumo-id").textContent =
-            dados.id;
+            idFormatado;
 
         document.getElementById("resumo-aparelho").textContent =
             dados.aparelhoCompleto;
@@ -72,10 +77,11 @@ fetch("dados.json")
 
     })
     .catch(function(erro) {
-
-        // Mensagem exibida se o JSON não carregar
-        document.getElementById("mensagem-status").textContent =
-            "Não foi possível carregar os dados. Verifique o arquivo dados.json.";
+        if (chamadoPesquisado) {
+            const idFormatado = chamadoPesquisado.startsWith("#") ? chamadoPesquisado : "#" + chamadoPesquisado;
+            document.getElementById("titulo-atendimento").textContent = "Atendimento " + idFormatado;
+            document.getElementById("resumo-id").textContent = idFormatado;
+        }
 
         console.log(erro);
     });
@@ -106,11 +112,17 @@ botoesMenu.forEach(function(botao) {
 /* BOTÕES DO CABEÇALHO */
 
 // Botão de pesquisa
-document.getElementById("botao-busca").addEventListener("click", function() {
-    alert("A pesquisa será conectada em uma próxima etapa.");
-});
+const botaoBusca = document.getElementById("botao-busca");
+if (botaoBusca) {
+    botaoBusca.addEventListener("click", function() {
+        alert("A pesquisa será conectada em uma próxima etapa.");
+    });
+}
 
 // Botão de notificações
-document.getElementById("botao-notificacao").addEventListener("click", function() {
-    alert("Você não tem novas notificações.");
-});
+const botaoNotificacao = document.getElementById("botao-notificacao");
+if (botaoNotificacao) {
+    botaoNotificacao.addEventListener("click", function() {
+        alert("Você não tem novas notificações.");
+    });
+}
